@@ -3,7 +3,7 @@ This is a repository to learn about mongodb
 
 We can find here the official documentation of mongodb [here](https://docs.mongodb.com/manual/introduction/)
 
-## Table of Contents (api)
+## Table of Contents
 * [Mongodb CRUD](#mongodb_crud)
 * [Mongodb Aggregation](#mongodb_aggregation)
 * [Mongodb Indexes](#mongodb_indexes)
