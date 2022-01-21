@@ -36,6 +36,16 @@ db.characters.insertMany([{"name":"Dark Vader","type":"Sith"},{"name":"C3PO","ty
 db.characters.find({});
 ```
 
+Now we are going to do a bulk insertion doing it with node. First of all we have to download/install mongodb with the following command shell:
+```sh
+npm install mongodb
+```
+
+Afte this we are prepared to execute our file "02_mongodb_insert_many.js"
+```sh
+node 02_mongodb_insert_many.js
+```
+
 ## Mongodb Find
 The command to select items in mongodb is find.
 
