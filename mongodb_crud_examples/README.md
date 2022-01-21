@@ -32,7 +32,7 @@ db.characters.insertOne({"name":"luke skywalker","type":"Jedi"});
 db.characters.insertOne({"name":"Chewabacca","type":"Wookie"});
 
 #insert many
-db.characters.insertMany([{"name":"Dark Vader","type":"Sith"},{"name":"C3PO","type":"Robot"}])
+db.characters.insertMany([{"name":"Dark Vader","type":"Sith"},{"name":"C3PO","type":"Robot"}]);
 db.characters.find({});
 ```
 
@@ -40,6 +40,6 @@ db.characters.find({});
 The command to select items in mongodb is find.
 
 ```sh
-db.characters.find({})
+db.characters.find({});
 db.characters.findOne({});
 ```
