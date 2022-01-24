@@ -14,10 +14,13 @@ In this chapter we are going tu see how to understand and practice the CRUD oper
 First of all we need mongodb installed somewhere. We are going to use docker to create a container with the mongodb.
 
 ```sh
+#shell commands
 docker pull mongo
 docker container run --name mongo-starwars --publish 27017:27017 -d mongo
 docker container exec -it mongo-starwars bash
 mongo
+
+#mongodb commands
 use starwars;
 db.characters.insertOne({"name":"R2D2","type":"Robot"});
 ```
@@ -87,12 +90,30 @@ db.characters.findOne({});
 We are going to show how specify equality condition
 ```sh
 # { <field1>: <value1>, ... }
-db.characters.find({"type":"Robot"})
+db.characters.find({"type":"Robot"});
 ```
 
 ###	Specify Conditions Using Query Operators
 We are going to show how specify condition using query operator
 ```sh
 # { <field1>: { <operator1>: <value1> }, ... }
-db.characters.find({"type":{"$in":["Robot","Wookie"]}})
+db.characters.find({"type":{"$in":["Robot","Wookie"]}});
+```
+
+###	Specify AND Conditions
+We are going to show how specify AND condition
+```sh
+db.characters.find({"name":"R2D2","type":"Robot"});
+```
+
+###	Specify OR Conditions
+We are going to show how specify OR condition
+```sh
+db.characters.find({"$or":[{"name":"R2D2"},{"name":"C3PO"}]});
+```
+
+### Specify AND as well as OR Conditions
+We are going to show how mix AND and OR Coditions
+```sh
+db.characters.find({"type":"Robot","$or":[{"name":"R2D2"},{"name":"C3PO"}]});
 ```
