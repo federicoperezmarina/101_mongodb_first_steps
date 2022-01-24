@@ -84,3 +84,6 @@ db.planets.deleteMany({});
 db.characters.createIndex({"name":1});
 
 //mongodb create compound index
+db.starships.createIndex({"side":-1,"name":1});
+
+//mongodb aggregation
