@@ -259,3 +259,103 @@ db.planets.find({"capital_city":{"$exists":true}});
 { "_id" : ObjectId("61ef1391f4f662cd82b544a1"), "name" : "Kamino", "capital_city" : "Tipoca city" }
 { "_id" : ObjectId("61ef1391f4f662cd82b544a2"), "name" : "Naboo", "capital_city" : "Theed" }
 ```
+
+## Mongodb Update
+First of all we saw the insert operation, in second place find and now we are going to explain how to update fields in a document.
+
+We have three kind of operators:
+```sh
+db.collection.updateOne(<filter>, <update>, <options>)
+db.collection.updateMany(<filter>, <update>, <options>)
+db.collection.replaceOne(<filter>, <update>, <options>)
+```
+
+Query to update the city capital of the planet Tatooine:
+```sh
+db.planets.find({"name":"Tatooine"});
+#output
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a9"), "name" : "Tatooine" }
+
+#update
+db.planets.updateOne(
+	{"name":"Tatooine"},
+	{
+		"$set":{"capital_city":"Bestine"},
+		"$currentDate":{"lastmodified":true}
+	}
+);
+#output
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+db.planets.find({"name":"Tatooine"});
+#output
+{ "_id" : ObjectId("61ef1391f4f662cd82b544a3"), "name" : "Tatooine", "capital_city" : "Bestine", "lastmodified" : ISODate("2022-01-24T21:22:41.772Z") }
+```
+
+Query to update all documents at the same time
+```sh
+db.planets.find({});
+#output
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a4"), "name" : "Dagobah", "capital_city" : null }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a5"), "name" : "Corrusant", "capital_city" : "Galactic city" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a6"), "name" : "Exegol", "capital_city" : null }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a7"), "name" : "Kamino", "capital_city" : "Tipoca city" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a8"), "name" : "Naboo", "capital_city" : "Theed" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a9"), "name" : "Tatooine", "capital_city" : "Bestine", "lastmodified" : ISODate("2022-01-24T21:25:39.682Z") }
+
+#update
+db.planets.updateMany(
+	{},
+	{
+		"$set":{"type":"Planet"},
+		"$currentDate":{"lastmodified":true}
+	}
+);
+#output
+{ "acknowledged" : true, "matchedCount" : 6, "modifiedCount" : 6 }
+
+db.planets.find({});
+#output
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a4"), "name" : "Dagobah", "capital_city" : null, "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a5"), "name" : "Corrusant", "capital_city" : "Galactic city", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a6"), "name" : "Exegol", "capital_city" : null, "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a7"), "name" : "Kamino", "capital_city" : "Tipoca city", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a8"), "name" : "Naboo", "capital_city" : "Theed", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a9"), "name" : "Tatooine", "capital_city" : "Bestine", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+```
+
+## Mongodb Delete
+Now we are going to explain the last CRUD command, the "delete".
+
+We have two kind of operators:
+```sh
+db.collection.deleteMany()
+db.collection.deleteOne()
+```
+
+Query to delete the planet "Tatooine"
+```sh
+db.planets.find({"name":"Tatooine"});
+#output
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a9"), "name" : "Tatooine", "capital_city" : "Bestine", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+
+#delete Tatooine
+db.planets.deleteOne({"name":"Tatooine"});
+#output
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+#list all planets
+db.planets.find({});
+#output
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a4"), "name" : "Dagobah", "capital_city" : null, "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a5"), "name" : "Corrusant", "capital_city" : "Galactic city", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a6"), "name" : "Exegol", "capital_city" : null, "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a7"), "name" : "Kamino", "capital_city" : "Tipoca city", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+{ "_id" : ObjectId("61ef193cf4f662cd82b544a8"), "name" : "Naboo", "capital_city" : "Theed", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+#delete all planets
+db.planets.deleteMany({});
+{ "acknowledged" : true, "deletedCount" : 5 }
+#list all planets
+db.planets.find({});
+#output nothing
+```

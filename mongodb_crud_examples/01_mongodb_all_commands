@@ -46,4 +46,16 @@ db.characters.find({"type":{"$in":["Robot","Wookie"]}});
 db.characters.find({"name":"R2D2","type":"Robot"});
 db.characters.find({"$or":[{"name":"R2D2"},{"name":"C3PO"}]});
 db.characters.find({"type":"Robot","$or":[{"name":"R2D2"},{"name":"C3PO"}]});
-
+db.starships.find({"size":{"width":11.7,"height":2.4,"length":13.4, "weight":10000}});
+db.starships.find({"size.width":11.7});
+db.starships.find({"size.width":{"$gt":35}});
+db.starships.find({"name":"Super Star Destroyer","size.width":{"$gt":35}});
+db.starships.find({"weapons":["laser"]});
+db.starships.find({"weapons":"bombs"});
+db.starships.find({"weapons.0":"laser"});
+db.starships.find({"weapons":{"$size":3}});
+db.starships.find({"weapons":{"$size":3}},{"_id":0,"name":1});
+db.planets.find({"capital_city":null});
+db.planets.find({"capital_city":{"$type": 10}});
+db.planets.find({"capital_city":{"$exists":false}});
+db.planets.find({"capital_city":{"$exists":true}});
