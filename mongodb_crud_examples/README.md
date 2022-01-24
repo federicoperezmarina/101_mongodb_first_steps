@@ -81,3 +81,17 @@ The command to select items in mongodb is find.
 db.characters.find({});
 db.characters.findOne({});
 ```
+
+###	Specify Equality Condition
+We are goin to show how specify equality condition
+```sh
+# { <field1>: <value1>, ... }
+db.characters.find({"type":"Robot"})
+```
+
+###	Specify Conditions Using Query Operators
+We are goin to show how specify condition using query operator
+```sh
+# { <field1>: { <operator1>: <value1> }, ... }
+db.characters.find({"type":{"$in":["Robot","Wookie"]}})
+```
