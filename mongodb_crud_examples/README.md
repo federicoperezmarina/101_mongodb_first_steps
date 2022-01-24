@@ -80,18 +80,12 @@ done.
 Now we have some characters and planets in our starwars database. We want to introduce some starships more.
 ```sh
 db.starships.insertMany([
-	{"name":"X-wing", "size":"small", "weapons":["laser","missiles"], "crew":1},
-	{"name":"Tie-fighter", "size":"small", "weapons":["laser"], "crew":1},
-	{"name":"Millenium Falcon", "size":"medium", "weapons":["laser"], "crew":10},
-	{"name":"Super Star Destroyer", "size":"big", "weapons":["turbolaser","laser","missiles"], "crew":1000},
-	{"name":"Y-wing", "size":"small", "weapons":["missiles"], "crew":2},
-	{"name":"B-wing", "size":"small", "weapons":["laser","bombs"], "crew":2},
-	{"name":"Slave I", "size":"small", "weapons":["laser","missiles"], "crew":2},
-	{"name":"Jedi Starfighter", "size":"small", "weapons":["laser"], "crew":1},
-	{"name":"Lambda-class T-4a Shuttle", "size":"medium", "crew":10},
-	{"name":"N-1 Naboo Starfighter", "size":"small", "weapons":["laser"], "crew":1},
-	{"name":"Solar Sailer", "size":"small", "weapons":["laser"], "crew":1},
-	{"name":"Hammerhead-class Cruiser", "size":"medium", "weapons":["turbolaser","missiles"], "crew":25}
+	{"name":"X-wing", side:"Republic", "size":{"width":11.7,"height":2.4,"length":13.4, "weight":10000}, "weapons":["laser","missiles"], "crew":1},
+	{"name":"Tie-fighter", side:"Empire", "size":{"width":6.7,"height":8.8,"length":7.2, "weight":7500}, "weapons":["laser"], "crew":1},
+	{"name":"Millenium Falcon", side:"Republic", "size":{"width":34,"height":7.8,"length":34.75, "weight":100000}, "weapons":["laser"], "crew":10},
+	{"name":"Super Star Destroyer", side:"Empire", "size":{"width":60543,"height":3975,"length":13234, "weight":1000000000}, "weapons":["turbolaser","laser","missiles"], "crew":1000},
+	{"name":"Y-wing", side:"Republic", "size":{"width":8.54,"height":2.44,"length":20.03, "weight":20000}, "weapons":["missiles"], "crew":2},
+	{"name":"B-wing", side:"Republic", "size":{"width":2.9,"height":7.3,"length":16.9, "weight":20000}, "weapons":["laser","bombs"], "crew":2}
 ]);
 ```
 
@@ -108,6 +102,9 @@ We are going to show how specify equality condition
 ```sh
 # { <field1>: <value1>, ... }
 db.characters.find({"type":"Robot"});
+#output
+{ "_id" : ObjectId("61eeb4d8f4f662cd82b5446f"), "name" : "R2D2", "type" : "Robot" }
+{ "_id" : ObjectId("61eeb609f4f662cd82b54472"), "name" : "C3PO", "type" : "Robot" }
 ```
 
 ###	Specify Conditions Using Query Operators
@@ -115,22 +112,150 @@ We are going to show how specify condition using query operator
 ```sh
 # { <field1>: { <operator1>: <value1> }, ... }
 db.characters.find({"type":{"$in":["Robot","Wookie"]}});
+#output
+{ "_id" : ObjectId("61eeb4d8f4f662cd82b5446f"), "name" : "R2D2", "type" : "Robot" }
+{ "_id" : ObjectId("61eeb5e94923339f09a84a49"), "name" : "Chewabacca", "type" : "Wookie" }
+{ "_id" : ObjectId("61eeb609f4f662cd82b54472"), "name" : "C3PO", "type" : "Robot" }
 ```
 
 ###	Specify AND Conditions
 We are going to show how specify AND condition
 ```sh
 db.characters.find({"name":"R2D2","type":"Robot"});
+#output
+{ "_id" : ObjectId("61eeb4d8f4f662cd82b5446f"), "name" : "R2D2", "type" : "Robot" }
 ```
 
 ###	Specify OR Conditions
 We are going to show how specify OR condition
 ```sh
 db.characters.find({"$or":[{"name":"R2D2"},{"name":"C3PO"}]});
+#output
+{ "_id" : ObjectId("61eeb4d8f4f662cd82b5446f"), "name" : "R2D2", "type" : "Robot" }
+{ "_id" : ObjectId("61eeb609f4f662cd82b54472"), "name" : "C3PO", "type" : "Robot" }
 ```
 
 ### Specify AND as well as OR Conditions
 We are going to show how mix AND and OR Coditions
 ```sh
 db.characters.find({"type":"Robot","$or":[{"name":"R2D2"},{"name":"C3PO"}]});
+#output
+{ "_id" : ObjectId("61eeb4d8f4f662cd82b5446f"), "name" : "R2D2", "type" : "Robot" }
+{ "_id" : ObjectId("61eeb609f4f662cd82b54472"), "name" : "C3PO", "type" : "Robot" }
+```
+
+### Match an Embeded/Nested Document
+We are going to show how to find a nested document
+```sh
+db.starships.find({"size":{"width":11.7,"height":2.4,"length":13.4, "weight":10000}});
+#output
+{ "_id" : ObjectId("61ef0d67f4f662cd82b54498"), "name" : "X-wing", "side" : "Republic", "size" : { "width" : 11.7, "height" : 2.4, "length" : 13.4, "weight" : 10000 }, "weapons" : [ "laser", "missiles" ], "crew" : 1 }
+```
+
+### Query on Nested Field
+We are going to show how to find a nested field -> ("field.nestedField")
+```sh
+db.starships.find({"size.width":11.7});
+#output
+{ "_id" : ObjectId("61ef0d67f4f662cd82b54498"), "name" : "X-wing", "side" : "Republic", "size" : { "width" : 11.7, "height" : 2.4, "length" : 13.4, "weight" : 10000 }, "weapons" : [ "laser", "missiles" ], "crew" : 1 }
+```
+
+Another example can be adding an operator to find in the nested field
+```sh
+db.starships.find({"size.width":{"$gt":35}});
+#output
+{ "_id" : ObjectId("61ef0d67f4f662cd82b5449b"), "name" : "Super Star Destroyer", "side" : "Empire", "size" : { "width" : 60543, "height" : 3975, "length" : 13234, "weight" : 1000000000 }, "weapons" : [ "turbolaser", "laser", "missiles" ], "crew" : 1000 }
+```
+
+Specify AND condition with a nested field
+```sh
+db.starships.find({"name":"Super Star Destroyer","size.width":{"$gt":35}});
+#output
+{ "_id" : ObjectId("61ef0d67f4f662cd82b5449b"), "name" : "Super Star Destroyer", "side" : "Empire", "size" : { "width" : 60543, "height" : 3975, "length" : 13234, "weight" : 1000000000 }, "weapons" : [ "turbolaser", "laser", "missiles" ], "crew" : 1000 }
+```
+
+## Query an Array
+Now we are going to learn how to query in mongodb fields with arrays:
+
+Query: starship with weapons laser
+```sh
+db.starships.find({"weapons":["laser"]});
+#output
+{ "_id" : ObjectId("61ef0d67f4f662cd82b54499"), "name" : "Tie-fighter", "side" : "Empire", "size" : { "width" : 6.7, "height" : 8.8, "length" : 7.2, "weight" : 7500 }, "weapons" : [ "laser" ], "crew" : 1 }
+{ "_id" : ObjectId("61ef0d67f4f662cd82b5449a"), "name" : "Millenium Falcon", "side" : "Republic", "size" : { "width" : 34, "height" : 7.8, "length" : 34.75, "weight" : 100000 }, "weapons" : [ "laser" ], "crew" : 10 }
+```
+
+Query: starship with weapons bombs
+```sh
+db.starships.find({"weapons":"bombs"});
+#output
+{ "_id" : ObjectId("61ef0d67f4f662cd82b5449d"), "name" : "B-wing", "side" : "Republic", "size" : { "width" : 2.9, "height" : 7.3, "length" : 16.9, "weight" : 20000 }, "weapons" : [ "laser", "bombs" ], "crew" : 2 }
+```
+
+Query: starship with weapons laser in position 0
+```sh
+db.starships.find({"weapons.0":"laser"});
+#output
+{ "_id" : ObjectId("61ef0d67f4f662cd82b54498"), "name" : "X-wing", "side" : "Republic", "size" : { "width" : 11.7, "height" : 2.4, "length" : 13.4, "weight" : 10000 }, "weapons" : [ "laser", "missiles" ], "crew" : 1 }
+{ "_id" : ObjectId("61ef0d67f4f662cd82b54499"), "name" : "Tie-fighter", "side" : "Empire", "size" : { "width" : 6.7, "height" : 8.8, "length" : 7.2, "weight" : 7500 }, "weapons" : [ "laser" ], "crew" : 1 }
+{ "_id" : ObjectId("61ef0d67f4f662cd82b5449a"), "name" : "Millenium Falcon", "side" : "Republic", "size" : { "width" : 34, "height" : 7.8, "length" : 34.75, "weight" : 100000 }, "weapons" : [ "laser" ], "crew" : 10 }
+{ "_id" : ObjectId("61ef0d67f4f662cd82b5449d"), "name" : "B-wing", "side" : "Republic", "size" : { "width" : 2.9, "height" : 7.3, "length" : 16.9, "weight" : 20000 }, "weapons" : [ "laser", "bombs" ], "crew" : 2 }
+```
+
+Query: starship with 3 weapons
+```sh
+db.starships.find({"weapons":{"$size":3}});
+#output
+{ "_id" : ObjectId("61ef0d67f4f662cd82b5449b"), "name" : "Super Star Destroyer", "side" : "Empire", "size" : { "width" : 60543, "height" : 3975, "length" : 13234, "weight" : 1000000000 }, "weapons" : [ "turbolaser", "laser", "missiles" ], "crew" : 1000 }
+```
+
+Also we can query in this way
+```sh
+#this query can't be executed in starwars database
+db.inventory.find( { "dim_cm": { "$gt": 25 } } )
+db.inventory.find( { "dim_cm": { "$gt": 15, "$lt": 20 } } )
+db.inventory.find( { "dim_cm": { "$elemMatch": { "$gt": 22, "$lt": 30 } } } )
+```
+
+## Project fields in mongodb
+If you only want a part of the output document you have to select the fields that you want and this is called project in mongodb.
+```sh
+db.starships.find({"weapons":{"$size":3}},{"_id":0,"name":1});
+#output
+{ "name" : "Super Star Destroyer" }
+```
+
+## Query for Null or Missing Fields
+We are going to query to null elements o missing fields
+
+Query Equality Filter:
+```sh
+db.planets.find({"capital_city":null});
+#output
+{ "_id" : ObjectId("61ef1391f4f662cd82b5449e"), "name" : "Dagobah", "capital_city" : null }
+{ "_id" : ObjectId("61ef1391f4f662cd82b544a0"), "name" : "Exegol", "capital_city" : null }
+{ "_id" : ObjectId("61ef1391f4f662cd82b544a3"), "name" : "Tatooine" }
+```
+
+Query Type Check
+```sh
+db.planets.find({"capital_city":{"$type": 10}});
+#output
+{ "_id" : ObjectId("61ef1391f4f662cd82b5449e"), "name" : "Dagobah", "capital_city" : null }
+{ "_id" : ObjectId("61ef1391f4f662cd82b544a0"), "name" : "Exegol", "capital_city" : null }
+```
+
+Query Existence Check:
+```sh
+db.planets.find({"capital_city":{"$exists":false}});
+#output
+{ "_id" : ObjectId("61ef1391f4f662cd82b544a3"), "name" : "Tatooine" }
+
+db.planets.find({"capital_city":{"$exists":true}});
+#output
+{ "_id" : ObjectId("61ef1391f4f662cd82b5449e"), "name" : "Dagobah", "capital_city" : null }
+{ "_id" : ObjectId("61ef1391f4f662cd82b5449f"), "name" : "Corrusant", "capital_city" : "Galactic city" }
+{ "_id" : ObjectId("61ef1391f4f662cd82b544a0"), "name" : "Exegol", "capital_city" : null }
+{ "_id" : ObjectId("61ef1391f4f662cd82b544a1"), "name" : "Kamino", "capital_city" : "Tipoca city" }
+{ "_id" : ObjectId("61ef1391f4f662cd82b544a2"), "name" : "Naboo", "capital_city" : "Theed" }
 ```

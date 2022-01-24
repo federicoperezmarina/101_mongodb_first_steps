@@ -20,9 +20,9 @@ db.characters.insertMany([
 
 //mongodb inserts - starwars.planets
 db.planets.insertMany([
-	{"name":"Dagobah"},
+	{"name":"Dagobah","capital_city":null},
 	{"name":"Corrusant", "capital_city":"Galactic city"},
-	{"name":"Exegol"},
+	{"name":"Exegol","capital_city":null},
 	{"name":"Kamino", "capital_city":"Tipoca city"},
 	{"name":"Naboo", "capital_city":"Theed"},
 	{"name":"Tatooine"},
@@ -30,18 +30,12 @@ db.planets.insertMany([
 
 //mongodb inserts - starwars.starships
 db.starships.insertMany([
-	{"name":"X-wing", "size":"small", "weapons":["laser","missiles"], "crew":1},
-	{"name":"Tie-fighter", "size":"small", "weapons":["laser"], "crew":1},
-	{"name":"Millenium Falcon", "size":"medium", "weapons":["laser"], "crew":10},
-	{"name":"Super Star Destroyer", "size":"big", "weapons":["turbolaser","laser","missiles"], "crew":1000},
-	{"name":"Y-wing", "size":"small", "weapons":["missiles"], "crew":2},
-	{"name":"B-wing", "size":"small", "weapons":["laser","bombs"], "crew":2},
-	{"name":"Slave I", "size":"small", "weapons":["laser","missiles"], "crew":2},
-	{"name":"Jedi Starfighter", "size":"small", "weapons":["laser"], "crew":1},
-	{"name":"Lambda-class T-4a Shuttle", "size":"medium", "crew":10},
-	{"name":"N-1 Naboo Starfighter", "size":"small", "weapons":["laser"], "crew":1},
-	{"name":"Solar Sailer", "size":"small", "weapons":["laser"], "crew":1},
-	{"name":"Hammerhead-class Cruiser", "size":"medium", "weapons":["turbolaser","missiles"], "crew":25}
+	{"name":"X-wing", side:"Republic", "size":{"width":11.7,"height":2.4,"length":13.4, "weight":10000}, "weapons":["laser","missiles"], "crew":1},
+	{"name":"Tie-fighter", side:"Empire", "size":{"width":6.7,"height":8.8,"length":7.2, "weight":7500}, "weapons":["laser"], "crew":1},
+	{"name":"Millenium Falcon", side:"Republic", "size":{"width":34,"height":7.8,"length":34.75, "weight":100000}, "weapons":["laser"], "crew":10},
+	{"name":"Super Star Destroyer", side:"Empire", "size":{"width":60543,"height":3975,"length":13234, "weight":1000000000}, "weapons":["turbolaser","laser","missiles"], "crew":1000},
+	{"name":"Y-wing", side:"Republic", "size":{"width":8.54,"height":2.44,"length":20.03, "weight":20000}, "weapons":["missiles"], "crew":2},
+	{"name":"B-wing", side:"Republic", "size":{"width":2.9,"height":7.3,"length":16.9, "weight":20000}, "weapons":["laser","bombs"], "crew":2}
 ]);
 
 //mongodb find 
