@@ -77,6 +77,23 @@ Inserted documents => {
 done.
 ```
 
+Now we have some characters and planets in our starwars database. We want to introduce some starships more.
+```sh
+db.starships.insertMany([
+	{"name":"X-wing", "size":"small", "weapons":["laser","missiles"], "crew":1},
+	{"name":"Tie-fighter", "size":"small", "weapons":["laser"], "crew":1},
+	{"name":"Millenium Falcon", "size":"medium", "weapons":["laser"], "crew":10},
+	{"name":"Super Star Destroyer", "size":"big", "weapons":["turbolaser","laser","missiles"], "crew":1000},
+	{"name":"Y-wing", "size":"small", "weapons":["missiles"], "crew":2},
+	{"name":"B-wing", "size":"small", "weapons":["laser","bombs"], "crew":2},
+	{"name":"Slave I", "size":"small", "weapons":["laser","missiles"], "crew":2},
+	{"name":"Jedi Starfighter", "size":"small", "weapons":["laser"], "crew":1},
+	{"name":"Lambda-class T-4a Shuttle", "size":"medium", "crew":10},
+	{"name":"N-1 Naboo Starfighter", "size":"small", "weapons":["laser"], "crew":1},
+	{"name":"Solar Sailer", "size":"small", "weapons":["laser"], "crew":1},
+	{"name":"Hammerhead-class Cruiser", "size":"medium", "weapons":["turbolaser","missiles"], "crew":25}
+]);
+```
 
 ## Mongodb Find
 The command to select items in mongodb is find.
