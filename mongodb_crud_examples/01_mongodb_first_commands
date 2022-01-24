@@ -1,3 +1,10 @@
+#shell commands
+docker pull mongo
+docker container run --name mongo-starwars --publish 27017:27017 -d mongo
+docker container exec -it mongo-starwars bash
+mongo
+
+#mongodb commands
 show dbs;
 use starwars;
 show dbs;
