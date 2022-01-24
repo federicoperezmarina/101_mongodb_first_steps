@@ -87,3 +87,139 @@ db.characters.createIndex({"name":1});
 db.starships.createIndex({"side":-1,"name":1});
 
 //mongodb aggregation
+db.starships.aggregate([
+	{
+		"$match": {"side":"Republic"}
+	}
+]);
+db.starships.aggregate([
+	{
+		"$match": {
+			"side":"Republic"
+		}
+	},
+	{
+		"$group":{
+			"side": "$side",
+		  	"total_crew": {
+		    	"$sum": "$crew"
+		  	}
+		}
+	}
+]);
+db.starships.aggregate([
+	{
+		"$project":{
+			"side" : 1,
+			"crew":1
+		}
+	},
+	{
+		"$match": {
+			"side":{
+				"$in":["Republic","Empire"]
+			}
+		}
+	},
+	{
+		"$group":{
+			"side": "$side",
+		  	"total_crew": {
+		    	"$sum": "$crew"
+		  	}
+		}
+	}
+]);
+db.starships.aggregate([
+	{
+		"$project":{
+			"side" : 1,
+			"crew":1
+		}
+	},
+	{
+		"$match": {
+			"side":{
+				"$in":["Republic","Empire"]
+			}
+		}
+	},
+	{
+		"$group":{
+			"_id": "$side",
+		  	"total_crew": {
+		    	"$sum": "$crew"
+		  	}
+		}
+	},
+	{
+		"$sort":{
+			"_id" : -1
+		}
+	}
+]);
+db.starships.aggregate([
+	{
+		"$project":{
+			"side" : 1,
+			"crew":1
+		}
+	},
+	{
+		"$match": {
+			"side":{
+				"$in":["Republic","Empire"]
+			}
+		}
+	},
+	{
+		"$group":{
+			"_id": "$side",
+		  	"total_crew": {
+		    	"$sum": "$crew"
+		  	}
+		}
+	},
+	{
+		"$sort":{
+			"_id" : -1
+		}
+	},
+	{
+		"$limit":1
+	}
+]);
+db.starships.aggregate([
+	{
+		"$project":{
+			"side" : 1,
+			"crew":1
+		}
+	},
+	{
+		"$match": {
+			"side":{
+				"$in":["Republic","Empire"]
+			}
+		}
+	},
+	{
+		"$group":{
+			"_id": "$side",
+		  	"total_crew": {
+		    	"$sum": "$crew"
+		  	}
+		}
+	},
+	{
+		"$sort":{
+			"_id" : -1
+		}
+	},
+	{
+		"$skip":1
+	},	
+	{
+		"$limit":1
+	}
+]);
