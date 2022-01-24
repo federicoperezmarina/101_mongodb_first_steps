@@ -59,3 +59,23 @@ db.planets.find({"capital_city":null});
 db.planets.find({"capital_city":{"$type": 10}});
 db.planets.find({"capital_city":{"$exists":false}});
 db.planets.find({"capital_city":{"$exists":true}});
+
+//mongodb update
+db.planets.updateOne(
+	{"name":"Tatooine"},
+	{
+		"$set":{"capital_city":"Bestine"},
+		"$currentDate":{"lastmodified":true}
+	}
+);
+db.planets.updateMany(
+	{},
+	{
+		"$set":{"type":"Planet"},
+		"$currentDate":{"lastmodified":true}
+	}
+);
+
+//mongodb delete
+db.planets.deleteOne({"name":"Tatooine"});
+db.planets.deleteMany({});
