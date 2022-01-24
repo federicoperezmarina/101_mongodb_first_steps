@@ -59,7 +59,7 @@ npm install mongodb
 
 After this we are prepared to execute our file "02_mongodb_insert_many.js"
 ```sh
-$ node 02_mongodb_insert_many.js
+$ node mongodb_insert_many.js
 
 Connected successfully to server
 Inserted documents => {

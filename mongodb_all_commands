@@ -79,3 +79,8 @@ db.planets.updateMany(
 //mongodb delete
 db.planets.deleteOne({"name":"Tatooine"});
 db.planets.deleteMany({});
+
+//mongodb create single index
+db.characters.createIndex({"name":1});
+
+//mongodb create compound index
