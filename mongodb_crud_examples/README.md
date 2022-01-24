@@ -2,12 +2,24 @@
 In this chapter we are going tu see how to understand and practice the CRUD operations like create, read, update and delete
 
 ## Table of Contents
+* [Mongodb Docker](#mongodb_docker)
 * [Mongodb Show Databases](#mongodb_show_databases)
 * [Mongodb Use Database](#mongodb_use_database)
 * [Mongodb Insert](#mongodb_insert)
 * [Mongodb Find](#mongodb_find)
 * [Mongodb Update](#mongodb_update)
 * [Mongodb Delete](#mongodb_delete)
+
+## Mongodb Docker
+First of all we need mongodb installed somewhere. We are going to use docker to create a container with the mongodb.
+
+```sh
+docker container run --name mongo-starwars --publish 27017:27017 -d mongo
+docker container exec -it mongo-starwars bash
+mongo
+use starwars;
+db.characters.insertOne({"name":"R2D2","type":"Robot"});
+```
 
 ## Mongodb Show Databases
 We are going to show the first command of mongodb in order to list all the databases.
@@ -28,7 +40,7 @@ In mongodb we can do an atomic insert or a bulk insert
 
 ```sh
 #insert one
-db.characters.insertOne({"name":"luke skywalker","type":"Jedi"});
+db.characters.insertOne({"name":"Luke skywalker","type":"Jedi"});
 db.characters.insertOne({"name":"Chewabacca","type":"Wookie"});
 
 #insert many

@@ -1,8 +1,10 @@
 show dbs;
 use starwars;
 show dbs;
-db.characters.insertOne({"name":"luke skywalker","type":"Jedi"});
+db.characters.insertOne({"name":"R2D2","type":"Robot"});
+db.characters.insertOne({"name":"Luke skywalker","type":"Jedi"});
 db.characters.insertOne({"name":"Chewabacca","type":"Wookie"});
 db.characters.find({})
 db.characters.findOne({});
-db.characters.insertMany({"name":"Dark Vader","type":"Sith"},{"name":"C3PO","type":"Robot"})
+db.characters.insertMany([{"name":"Dark Vader","type":"Sith"},{"name":"C3PO","type":"Robot"}])
+db.characters.find({});
