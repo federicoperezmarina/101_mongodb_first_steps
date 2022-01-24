@@ -14,6 +14,7 @@ In this chapter we are going tu see how to understand and practice the CRUD oper
 First of all we need mongodb installed somewhere. We are going to use docker to create a container with the mongodb.
 
 ```sh
+docker pull mongo
 docker container run --name mongo-starwars --publish 27017:27017 -d mongo
 docker container exec -it mongo-starwars bash
 mongo
@@ -83,14 +84,14 @@ db.characters.findOne({});
 ```
 
 ###	Specify Equality Condition
-We are goin to show how specify equality condition
+We are going to show how specify equality condition
 ```sh
 # { <field1>: <value1>, ... }
 db.characters.find({"type":"Robot"})
 ```
 
 ###	Specify Conditions Using Query Operators
-We are goin to show how specify condition using query operator
+We are going to show how specify condition using query operator
 ```sh
 # { <field1>: { <operator1>: <value1> }, ... }
 db.characters.find({"type":{"$in":["Robot","Wookie"]}})
