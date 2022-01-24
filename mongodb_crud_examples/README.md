@@ -352,6 +352,7 @@ db.planets.find({});
 { "_id" : ObjectId("61ef193cf4f662cd82b544a6"), "name" : "Exegol", "capital_city" : null, "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
 { "_id" : ObjectId("61ef193cf4f662cd82b544a7"), "name" : "Kamino", "capital_city" : "Tipoca city", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
 { "_id" : ObjectId("61ef193cf4f662cd82b544a8"), "name" : "Naboo", "capital_city" : "Theed", "lastmodified" : ISODate("2022-01-24T21:27:48.002Z"), "type" : "Planet" }
+
 #delete all planets
 db.planets.deleteMany({});
 { "acknowledged" : true, "deletedCount" : 5 }
