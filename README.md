@@ -12,16 +12,16 @@ We can find here the official documentation of mongodb [here](https://docs.mongo
 ## Mongodb CRUD
 In this section we are going to learn what is CRUB command
 
-[Go to mongodb_crud_examples](/mongodb_crud_examples)
+[Go to mongodb_crud](/mongodb_crud)
 
 
 ## Mongodb Indexes
 In this section we are going to learn how to create indexes in order to increase the performance
 
-[Go to mongodb_indexes_examples](/mongodb_indexes_examples)
+[Go to mongodb_indexes](/mongodb_indexes)
 
 
 ## Mongodb Aggregation
 In this section we are going to learn how works the aggregation framework
 
-[Go to mongodb_aggregation_examples](/mongodb_aggregation_examples)
+[Go to mongodb_aggregation](/mongodb_aggregation)
