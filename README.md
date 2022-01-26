@@ -4,9 +4,9 @@ This is a repository to learn about mongodb
 We can find here the official documentation of mongodb [here](https://docs.mongodb.com/manual/introduction/)
 
 ## Table of Contents
-* [Mongodb CRUD](#mongodb_crud)
-* [Mongodb Indexes](#mongodb_indexes)
-* [Mongodb Aggregation](#mongodb_aggregation)
+* [Mongodb CRUD](#mongodb-crud)
+* [Mongodb Indexes](#mongodb-indexes)
+* [Mongodb Aggregation](#mongodb-aggregation)
 
 
 ## Mongodb CRUD
