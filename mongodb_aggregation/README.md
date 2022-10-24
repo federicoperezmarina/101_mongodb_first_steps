@@ -42,7 +42,7 @@ db.starships.aggregate([
 	},
 	{
 		"$group":{
-			"side": "$side",
+			"_id": "$side",
 		  	"total_crew": {
 		    	"$sum": "$crew"
 		  	}
