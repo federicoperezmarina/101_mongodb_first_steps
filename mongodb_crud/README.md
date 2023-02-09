@@ -18,7 +18,7 @@ First of all we need mongodb installed somewhere. We are going to use docker to 
 docker pull mongo
 docker container run --name mongo-starwars --publish 27017:27017 -d mongo
 docker container exec -it mongo-starwars bash
-mongo
+mongosh
 
 #mongodb commands
 use starwars;
