@@ -2,7 +2,7 @@
 docker pull mongo
 docker container run --name mongo-starwars --publish 27017:27017 -d mongo
 docker container exec -it mongo-starwars bash
-mongo
+mongosh
 
 //mongodb database commands
 show dbs;
